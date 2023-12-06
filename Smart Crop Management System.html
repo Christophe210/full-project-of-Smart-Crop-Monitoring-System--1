@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0;
+        }
+
+        
+        input {
+            padding: 5px;
+            margin: 5px 0;
+        }
+
+        button {
+            padding: 8px 16px;
+            margin: 10px 0;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin: 5px 0;
+            padding: 8px;
+            border: 1px solid #ddd;
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1> Smart Crop Management System</h1>
+
+    <label for="cropInput">Crop:</label>
+    <input type="text" id="cropInput">
+    <br>
+    <button onclick="recordCrop()">Record Crop</button>
+
+    <button onclick="displayCrops()">Display Crops</button>
+
+    <label for="oldCropInput">Old Crop:</label>
+    <input type="text" id="oldCropInput">
+    <label for="newCropInput">New Crop:</label>
+    <input type="text" id="newCropInput">
+    <br>
+    <button onclick="updateCrop()">Update Crop</button>
+
+    <label for="searchInput">Search Crop:</label>
+    <input type="text" id="searchInput">
+    <br>
+    <button onclick="searchCrop()">Search Crop</button>
+    <button onclick="displayCrops()">Display Crops</button>
+
+    <ul id="cropList"></ul>
+
+    <script>
+        var crops = [];
+
+        function recordCrop() {
+            var cropInput = document.getElementById("cropInput");
+            var crop = cropInput.value;
+            crops.push(crop);
+            alert("Crop recorded successfully.");
+            cropInput.value = "";
+        }
+
+        function displayCrops() {
+            var cropList = document.getElementById("cropList");
+            cropList.innerHTML = "List of crops:";
+            crops.forEach(function (crop) {
+                var listItem = document.createElement("li");
+                listItem.textContent = crop;
+                cropList.appendChild(listItem);
+            });
+        }
+
+        function updateCrop() {
+            var oldCropInput = document.getElementById("oldCropInput");
+            var newCropInput = document.getElementById("newCropInput");
+            var oldCrop = oldCropInput.value;
+            var newCrop = newCropInput.value;
+
+            var index = crops.indexOf(oldCrop);
+            if (index !== -1) {
+                crops[index] = newCrop;
+                alert("Crop updated successfully.");
+            } else {
+                alert("Crop not found.");
+            }
+
+            oldCropInput.value = "";
+            newCropInput.value = "";
+        }
+
+        function searchCrop() {
+            var searchInput = document.getElementById("searchInput");
+            var cropToSearch = searchInput.value;
+
+            if (crops.includes(cropToSearch)) {
+                alert(cropToSearch + " found in the list.");
+            } else {
+                alert(cropToSearch + " not found in the list.");
+            }
+
+            searchInput.value = "";
+        }
+    </script>
+</body>
+</html>
